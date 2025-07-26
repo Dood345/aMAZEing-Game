@@ -15,8 +15,6 @@ item_data = {
         
         // 2. Set the player's wielded sprite so it's visually holding the fist.
         //    We will make this wear off after one use.
-		wield_sprite.image_xscale = 0.0369;
-		wield_sprite.image_yscale = 0.0369;
         _player_id.wielded_item_sprite = wield_sprite; 
         
         // This item doesn't need to call recalculate_stats() because it doesn't

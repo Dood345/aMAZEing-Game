@@ -26,19 +26,42 @@ if (!generation_complete) {
 } else if (!walls_built) {
     // --- STATE 2: BUILDING THE WALLS (runs only once) ---
     // Loop through every cell to place the walls
+    var _layer_id = layer_get_id("Instances_Walls");
+    
+    // --- Create Internal and Top/Left Walls ---
+    // Each cell only creates the walls above and to its left.
     for (var i = 0; i < MAZE_WIDTH; i++) {
         for (var j = 0; j < MAZE_HEIGHT; j++) {
             var _cell = grid[i][j];
             var _x_pos = (i * CELL_SIZE) + offset_x;
             var _y_pos = (j * CELL_SIZE) + offset_y;
             
-            if (_cell.wall_north) { instance_create_layer(_x_pos, _y_pos, "Instances_Walls", o_wall_h); }
-            if (_cell.wall_south) { instance_create_layer(_x_pos, _y_pos + CELL_SIZE, "Instances_Walls", o_wall_h); }
-            if (_cell.wall_east)  { instance_create_layer(_x_pos + CELL_SIZE, _y_pos, "Instances_Walls", o_wall_v); }
-            if (_cell.wall_west)  { instance_create_layer(_x_pos, _y_pos, "Instances_Walls", o_wall_v); }
+            if (_cell.wall_north) {
+                instance_create_layer(_x_pos, _y_pos, _layer_id, o_wall_h);
+            }
+            if (_cell.wall_west) {
+                instance_create_layer(_x_pos, _y_pos, _layer_id, o_wall_v);
+            }
         }
     }
-    walls_built = true; // Mark the walls as built
+    
+    // --- Create Final Outer Walls ---
+    // We need to manually add the final right and bottom edges of the maze.
+    var _maze_pixel_w = MAZE_WIDTH * CELL_SIZE;
+    var _maze_pixel_h = MAZE_HEIGHT * CELL_SIZE;
+    
+    // Add the bottom border
+    for (var i = 0; i < MAZE_WIDTH; i++) {
+        var _x_pos = (i * CELL_SIZE) + offset_x;
+        instance_create_layer(_x_pos, offset_y + _maze_pixel_h, _layer_id, o_wall_h);
+    }
+    // Add the right border
+    for (var j = 0; j < MAZE_HEIGHT; j++) {
+        var _y_pos = (j * CELL_SIZE) + offset_y;
+        instance_create_layer(offset_x + _maze_pixel_w, _y_pos, _layer_id, o_wall_v);
+    }
+    
+    walls_built = true; // Move to the next state
 
 } else if (!powerup_spawned) {
 	// --- STATE 3: SPAWN POWERUP (runs only once) ---
