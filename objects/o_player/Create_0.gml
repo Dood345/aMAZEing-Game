@@ -1,28 +1,54 @@
 /// @description Player Variables and State
 
-// --- Movement Attributes ---
-acceleration = 0.2;     // How quickly we speed up
-max_speed = 4;          // The fastest we can move
-friction_amount = 0.1;  // How quickly we slow down when no keys are pressed
-stop_threshold = 0.15;  // If speed is below this, just stop completely
-//move_speed = 3;
-//turn_speed = 1;
+// --- BASE (Permanent) Attributes ---
+wielded_item_sprite = -1;
+base_acceleration = 0.2;
+base_max_speed = 4;
+base_friction_amount = 0.1;
+base_stop_threshold = 0.15;
+base_vision_radius = 3;
+base_map_reveal_percentage = 0.05;
+base_stamina = 100;
+base_max_stamina = 100;
+base_wall_break_charges = 0;
+base_portal_charges = 0;
+base_speedboost_duration = 0;
+
+// --- CURRENT (Temporary) Attributes ---
+// These are the values the game will actually use for movement, etc.
+current_acceleration = base_acceleration;
+current_max_speed = base_max_speed;
+current_friction_amount = base_friction_amount;
+current_wall_break_charges = base_wall_break_charges;
+current_stop_threshold = base_stop_threshold;
+current_speedboost_durration = base_speedboost_duration
+// (We don't need current versions of everything, just what power-ups will change)
 
 // --- Internal Physics Variables ---
-h_speed = 0; // Current horizontal speed
-v_speed = 0; // Current vertical speed
-
-// --- Attributes ---
-vision_radius = 3;
-map_reveal_percentage = 0.05;
-wall_break_charges = 0;
-portal_charges = 0;
-drone_duration = 0;
-speed_boost_duration = 0;
-stamina = 100;
-max_stamina = 100;
-
+h_speed = 0;
+v_speed = 0;
 
 // --- State Machine ---
-// We start in a "waiting" state.
 has_spawned = false;
+
+// --- HELPER METHOD: Recalculate Stats ---
+// This function will be the single place where we determine the player's current stats.
+recalculate_stats = function() {
+    
+    // 1. Reset current stats to their base values
+    current_acceleration = base_acceleration;
+    current_max_speed = base_max_speed;
+    current_friction_amount = base_friction_amount;
+    
+    // 2. Apply any active effects
+    // If the speed boost is active, apply its modifications
+    if (current_speedboost_duration > 0) {
+        current_acceleration += 0.2;
+        current_max_speed += 2;
+    }
+    
+    // If we had a "slow" debuff, we would subtract from the stats here!
+    // if (slow_duration > 0) {
+    //     current_max_speed -= 1;
+    // }
+}

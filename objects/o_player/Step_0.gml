@@ -76,13 +76,28 @@ if (!has_spawned) {
 	    }
 	}
 	
-	// --- Check for Power-Up Collection ---
-	var _speedup = instance_place(x, y, o_speedup);
-	if (_speedup != noone) {
-	    max_speed += 3;		
-		instance_destroy(_speedup); // Destroy the pickup
-	    // You could play a sound effect here!
+	// --- NEW, EVEN MORE GENERIC Power-Up Collection ---
+	var _pickup = instance_place(x, y, o_pickup_parent);
+	if (_pickup != noone) {
+    
+	    var _data = _pickup.item_data;
+    
+	    // Run the function that is stored inside the item's data!
+	    // We pass 'id' which is a reference to ourself (the player instance).
+	    _data.apply_effect(id); 
+    
+	    instance_destroy(_pickup);
 	}
+	
+	// --- Handle Temporary Power-Up Effects ---
+	if (current_speedboost_durration > 0) {
+        current_speedboost_durration -= 1;
+        
+        // If the timer JUST ran out...
+        if (current_speedboost_durration <= 0) {
+            recalculate_stats(); // ...update our stats to remove the buff.
+        }
+    }
 	
     // --- 1. Get Input and Apply Acceleration ---
 	var _key_right = keyboard_check(vk_right) || keyboard_check(ord("D"));
@@ -93,21 +108,21 @@ if (!has_spawned) {
 	var _move_horizontal = _key_right - _key_left;
 	var _move_vertical = _key_down - _key_up;
 
-	h_speed += _move_horizontal * acceleration;
-	v_speed += _move_vertical * acceleration;
+	h_speed += _move_horizontal * current_acceleration;
+	v_speed += _move_vertical * current_acceleration;
 
 
 	// --- 2. Apply Friction if No Input ---
 	if (_move_horizontal == 0) {
-	    if (abs(h_speed) > stop_threshold) {
-	        h_speed -= sign(h_speed) * friction_amount; // Slow down
+	    if (abs(h_speed) > current_stop_threshold) {
+	        h_speed -= sign(h_speed) * current_friction_amount; // Slow down
 	    } else {
 	        h_speed = 0; // Stop completely
 	    }
 	}
 	if (_move_vertical == 0) {
-	    if (abs(v_speed) > stop_threshold) {
-	        v_speed -= sign(v_speed) * friction_amount; // Slow down
+	    if (abs(v_speed) > current_stop_threshold) {
+	        v_speed -= sign(v_speed) * current_friction_amount; // Slow down
 	    } else {
 	        v_speed = 0; // Stop completely
 	    }
@@ -115,8 +130,8 @@ if (!has_spawned) {
 
 
 	// --- 3. Clamp to Max Speed ---
-	h_speed = clamp(h_speed, -max_speed, max_speed);
-	v_speed = clamp(v_speed, -max_speed, max_speed);
+	h_speed = clamp(h_speed, -current_max_speed, current_max_speed);
+	v_speed = clamp(v_speed, -current_max_speed, current_max_speed);
 
 
 	// --- 4. Handle Collisions ---

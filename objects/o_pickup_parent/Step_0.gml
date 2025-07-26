@@ -1,5 +1,4 @@
-/// @description Animate the scale
-
+///Animate the scale
 // Increment the timer. A smaller number makes the pulse slower.
 pulse_timer += 0.08;
 
