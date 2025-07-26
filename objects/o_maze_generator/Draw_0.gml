@@ -28,7 +28,6 @@ for (var i = 0; i < MAZE_WIDTH; i++) {
     }
 }
 
-// --- Highlight the current cell (top of the stack), also applying the offset ---
 if (!ds_stack_empty(path_stack)) {
     var _current_cell = ds_stack_top(path_stack);
     
@@ -38,4 +37,25 @@ if (!ds_stack_empty(path_stack)) {
     
     draw_set_color(c_lime);
     draw_rectangle(_x1, _y1, _x1 + CELL_SIZE, _y1 + CELL_SIZE, false);
+}
+
+// Draw the Start and End points only after the maze is complete
+if (generation_complete) {
+    
+    // --- Draw Start Point (Green) ---
+    var _start_x1 = (start_cell_x * CELL_SIZE) + offset_x;
+    var _start_y1 = (start_cell_y * CELL_SIZE) + offset_y;
+    
+    draw_set_color(c_green);
+    draw_rectangle(_start_x1, _start_y1, _start_x1 + CELL_SIZE, _start_y1 + CELL_SIZE, false);
+    
+    // --- Draw End Point (Red) ---
+    var _end_x1 = (end_cell_x * CELL_SIZE) + offset_x;
+    var _end_y1 = (end_cell_y * CELL_SIZE) + offset_y;
+    
+    draw_set_color(c_red);
+    draw_rectangle(_end_x1, _end_y1, _end_x1 + CELL_SIZE, _end_y1 + CELL_SIZE, false);
+    
+    // Reset color to white so we don't affect other drawings
+    draw_set_color(c_white);
 }

@@ -1,5 +1,5 @@
 /// @description Initialize Maze Generator
-
+randomize();
 // -- MAZE CONFIGURATION --
 // Feel free to change these values
 MAZE_WIDTH = 40;  // Number of cells wide
@@ -10,6 +10,10 @@ CELL_SIZE = 24;   // Size of each cell in pixels
 grid = [];
 path_stack = ds_stack_create();
 generation_complete = false;
+start_cell_x = -1; // -1 means not set yet
+start_cell_y = -1;
+end_cell_x = -1;
+end_cell_y = -1;
 
 // -- CELL CONSTRUCTOR --
 // A struct to hold the data for each individual cell in the maze
@@ -135,3 +139,5 @@ offset_x = (_cam_width - _total_maze_width) / 2;
 offset_y = (_cam_height - _total_maze_height) / 2;
 
 walls_built = false;
+
+spawn_ps_instance = part_system_create(ps_spawn);

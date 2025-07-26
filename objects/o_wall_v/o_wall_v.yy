@@ -1,18 +1,18 @@
 {
   "$GMObject":"",
-  "%Name":"o_player",
-  "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-  ],
+  "%Name":"o_wall_v",
+  "eventList":[],
   "managed":true,
-  "name":"o_player",
+  "name":"o_wall_v",
   "overriddenProperties":[],
   "parent":{
     "name":"Objects",
     "path":"folders/Objects.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"o_wall_parent",
+    "path":"objects/o_wall_parent/o_wall_parent.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -31,9 +31,9 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"s_player",
-    "path":"sprites/s_player/s_player.yy",
+    "name":"s_wall_v",
+    "path":"sprites/s_wall_v/s_wall_v.yy",
   },
   "spriteMaskId":null,
-  "visible":false,
+  "visible":true,
 }

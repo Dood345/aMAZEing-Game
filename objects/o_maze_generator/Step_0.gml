@@ -17,10 +17,10 @@ if (ds_stack_empty(path_stack)) {
                 var _y_pos = (j * CELL_SIZE) + offset_y;
                 
                 // Place a wall object if the cell has a wall
-                if (_cell.wall_north) { instance_create_layer(_x_pos, _y_pos, "Instances", o_wall); }
-                if (_cell.wall_south) { instance_create_layer(_x_pos, _y_pos + CELL_SIZE, "Instances", o_wall); }
-                if (_cell.wall_east)  { instance_create_layer(_x_pos + CELL_SIZE, _y_pos, "Instances", o_wall); }
-                if (_cell.wall_west)  { instance_create_layer(_x_pos, _y_pos, "Instances", o_wall); }
+                if (_cell.wall_north) { instance_create_layer(_x_pos, _y_pos, "Instances_Walls", o_wall_h); }
+                if (_cell.wall_south) { instance_create_layer(_x_pos, _y_pos + CELL_SIZE, "Instances_Walls", o_wall_h); }
+                if (_cell.wall_east)  { instance_create_layer(_x_pos + CELL_SIZE, _y_pos, "Instances_Walls", o_wall_v); }
+                if (_cell.wall_west)  { instance_create_layer(_x_pos, _y_pos, "Instances_Walls", o_wall_v); }
             }
         }
         
@@ -52,6 +52,10 @@ if (array_length(_neighbors) > 0) {
 }
 // 4. If there are NO unvisited neighbors...
 else {
+	// This is a potential end-point. We'll keep updating it.
+    // The last one we set will be the final dead end.
+    end_cell_x = _current_cell.x;
+    end_cell_y = _current_cell.y;
     // Backtrack by popping the current cell from the stack
     ds_stack_pop(path_stack);
 }
