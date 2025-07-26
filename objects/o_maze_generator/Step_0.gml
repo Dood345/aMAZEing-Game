@@ -23,8 +23,31 @@ if (ds_stack_empty(path_stack)) {
                 if (_cell.wall_west)  { instance_create_layer(_x_pos, _y_pos, "Instances_Walls", o_wall_v); }
             }
         }
+		
+		walls_built = true; // Mark the walls as built so we don't do it again
+		
+		// Spawn one "Fist" power-up
+		var _placed = false;
+		while (!_placed) {
+		    // Pick a random grid cell
+		    var _px = irandom(MAZE_WIDTH - 1);
+		    var _py = irandom(MAZE_HEIGHT - 1);
+    
+		    // Check if it's NOT the start or end cell
+		    if ((_px != start_cell_x || _py != start_cell_y) && (_px != end_cell_x || _py != end_cell_y)) {
         
-        walls_built = true; // Mark the walls as built so we don't do it again
+		        // This is a valid spot! Calculate the pixel position
+		        var _spawn_x = (offset_x) + (_px * CELL_SIZE);
+		        var _spawn_y = (offset_y) + (_py * CELL_SIZE);
+        
+		        // Create the pickup and stop looping
+		        instance_create_layer(_spawn_x, _spawn_y, "Instances_Player", o_speedup);
+				// Make the pickup 4.5% of its original size -- handled in animation for powerup now
+				//o_speedup.image_xscale = 0.045;
+				//o_speedup.image_yscale = 0.045;
+		        _placed = true;
+		    }
+		}
     }
     
     exit; // Exit the script for this frame

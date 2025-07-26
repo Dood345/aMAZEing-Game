@@ -15,6 +15,7 @@ start_cell_y = -1;
 end_cell_x = -1;
 end_cell_y = -1;
 
+
 // -- CELL CONSTRUCTOR --
 // A struct to hold the data for each individual cell in the maze
 function Cell(_x, _y) constructor {
@@ -104,6 +105,42 @@ remove_wall_between = function(_cell_a, _cell_b) {
         _cell_a.wall_south = false;
         _cell_b.wall_north = false;
     }
+}
+
+/// @function reset_maze()
+/// @description Resets all variables to generate a new maze.
+reset_maze = function() {
+    
+    // 1. Reset all the state variables
+    generation_complete = false;
+    walls_built = false;
+    start_cell_x = -1;
+    start_cell_y = -1;
+    end_cell_x = -1;
+    end_cell_y = -1;
+    
+    // 2. Clear out the old data structures
+    ds_stack_destroy(path_stack); // Destroy the old stack...
+    path_stack = ds_stack_create(); // ...and create a fresh one.
+    grid = []; // Clear the grid array
+    
+    // 3. Destroy all the old wall objects
+    instance_destroy(o_wall_parent);
+    
+    // 4. Re-run the initialization logic to create a new grid
+    for (var i = 0; i < MAZE_WIDTH; i++) {
+        grid[i] = [];
+        for (var j = 0; j < MAZE_HEIGHT; j++) {
+            grid[i][j] = new Cell(i, j);
+        }
+    }
+    
+    // 5. Pick a new random start point and push it to the stack
+    var _start_x = irandom(MAZE_WIDTH - 1);
+    var _start_y = irandom(MAZE_HEIGHT - 1);
+    var _start_cell = grid[_start_x][_start_y];
+    _start_cell.visited = true;
+    ds_stack_push(path_stack, _start_cell);
 }
 
 

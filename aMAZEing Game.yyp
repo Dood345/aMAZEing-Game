@@ -37,6 +37,7 @@
   "resources":[
     {"id":{"name":"o_maze_generator","path":"objects/o_maze_generator/o_maze_generator.yy",},},
     {"id":{"name":"o_player","path":"objects/o_player/o_player.yy",},},
+    {"id":{"name":"o_speedup","path":"objects/o_speedup/o_speedup.yy",},},
     {"id":{"name":"o_wall_h","path":"objects/o_wall_h/o_wall_h.yy",},},
     {"id":{"name":"o_wall_parent","path":"objects/o_wall_parent/o_wall_parent.yy",},},
     {"id":{"name":"o_wall_v","path":"objects/o_wall_v/o_wall_v.yy",},},
@@ -46,6 +47,7 @@
     {"id":{"name":"GM_FlameIntensity_spr_Fire","path":"sprites/GM_FlameIntensity_spr_Fire/GM_FlameIntensity_spr_Fire.yy",},},
     {"id":{"name":"s_collision_tiles","path":"sprites/s_collision_tiles/s_collision_tiles.yy",},},
     {"id":{"name":"s_player","path":"sprites/s_player/s_player.yy",},},
+    {"id":{"name":"s_speedup","path":"sprites/s_speedup/s_speedup.yy",},},
     {"id":{"name":"s_wall_h","path":"sprites/s_wall_h/s_wall_h.yy",},},
     {"id":{"name":"s_wall_v","path":"sprites/s_wall_v/s_wall_v.yy",},},
     {"id":{"name":"ts_collision","path":"tilesets/ts_collision/ts_collision.yy",},},
