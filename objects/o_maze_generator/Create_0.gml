@@ -40,7 +40,7 @@ function Cell(_x, _y) constructor {
 /// @description Finds all valid, unvisited neighbors for a given cell.
 /// @param {real} cx   The x-coordinate of the cell in the grid.
 /// @param {real} cy   The y-coordinate of the cell in the grid.
-/// @return {array} An array containing the unvisited neighbor cells (structs).
+/// @return {Array<Any>} An array containing the unvisited neighbor cells (structs).
 get_unvisited_neighbors = function(cx, cy) {
     var _neighbors = [];
     
@@ -79,8 +79,8 @@ get_unvisited_neighbors = function(cx, cy) {
 
 /// @function remove_wall_between(cell_a, cell_b)
 /// @description Removes the wall between two adjacent cells.
-/// @param {struct.Cell} cell_a The first cell.
-/// @param {struct.Cell} cell_b The second cell.
+/// @param {struct.Cell} _cell_a The first cell.
+/// @param {struct.Cell} _cell_b The second cell.
 remove_wall_between = function(_cell_a, _cell_b) {
     var _dx = _cell_a.x - _cell_b.x;
     // _cell_a is to the east of _cell_b
@@ -111,37 +111,37 @@ remove_wall_between = function(_cell_a, _cell_b) {
 /// @description Resets all variables to generate a new maze.
 reset_maze = function() {
     
-    // 1. Reset all the state variables
-    generation_complete = false;
-	powerup_spawned = false;
-    walls_built = false;
-    start_cell_x = -1;
-    start_cell_y = -1;
-    end_cell_x = -1;
-    end_cell_y = -1;
+    // 1. Reset all the state variables using 'self'
+    self.generation_complete = false;
+    self.powerup_spawned = false;
+    self.walls_built = false;
+    self.start_cell_x = -1;
+    self.start_cell_y = -1;
+    self.end_cell_x = -1;
+    self.end_cell_y = -1;
     
     // 2. Clear out the old data structures
-    ds_stack_destroy(path_stack); // Destroy the old stack...
-    path_stack = ds_stack_create(); // ...and create a fresh one.
-    grid = []; // Clear the grid array
+    ds_stack_destroy(self.path_stack);
+    self.path_stack = ds_stack_create();
+    self.grid = [];
     
     // 3. Destroy all the old wall objects
     instance_destroy(o_wall_parent);
     
     // 4. Re-run the initialization logic to create a new grid
-    for (var i = 0; i < MAZE_WIDTH; i++) {
-        grid[i] = [];
-        for (var j = 0; j < MAZE_HEIGHT; j++) {
-            grid[i][j] = new Cell(i, j);
+    for (var i = 0; i < self.MAZE_WIDTH; i++) {
+        self.grid[i] = [];
+        for (var j = 0; j < self.MAZE_HEIGHT; j++) {
+            self.grid[i][j] = new Cell(i, j);
         }
     }
     
     // 5. Pick a new random start point and push it to the stack
-    var _start_x = irandom(MAZE_WIDTH - 1);
-    var _start_y = irandom(MAZE_HEIGHT - 1);
-    var _start_cell = grid[_start_x][_start_y];
+    var _start_x = irandom(self.MAZE_WIDTH - 1);
+    var _start_y = irandom(self.MAZE_HEIGHT - 1);
+    var _start_cell = self.grid[_start_x][_start_y];
     _start_cell.visited = true;
-    ds_stack_push(path_stack, _start_cell);
+    ds_stack_push(self.path_stack, _start_cell);
 }
 
 /// @function find_locations_by_distance(_start_x, _start_y, _distance)
