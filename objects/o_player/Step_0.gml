@@ -90,11 +90,11 @@ if (!has_spawned) {
 	}
 	
 	// --- Handle Temporary Power-Up Effects ---
-	if (current_speedboost_durration > 0) {
-        current_speedboost_durration -= 1;
+	if (current_speedboost_duration > 0) {
+        current_speedboost_duration -= 1;
         
         // If the timer JUST ran out...
-        if (current_speedboost_durration <= 0) {
+        if (current_speedboost_duration <= 0) {
             recalculate_stats(); // ...update our stats to remove the buff.
         }
     }

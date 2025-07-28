@@ -21,7 +21,7 @@ current_max_speed = base_max_speed;
 current_friction_amount = base_friction_amount;
 current_wall_break_charges = base_wall_break_charges;
 current_stop_threshold = base_stop_threshold;
-current_speedboost_durration = base_speedboost_duration
+current_speedboost_duration = base_speedboost_duration
 // (We don't need current versions of everything, just what power-ups will change)
 
 // --- Internal Physics Variables ---
