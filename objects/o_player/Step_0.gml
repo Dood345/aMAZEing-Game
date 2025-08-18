@@ -164,22 +164,4 @@ if (!has_spawned) {
 	    _move_y = 0;
 	}
 	y += _move_y;
-
-    // -- FOG OF WAR --
-    if (instance_exists(o_maze_generator) && surface_exists(o_maze_generator.fog_of_war_surface)) {
-        var _surf = o_maze_generator.fog_of_war_surface;
-        surface_set_target(_surf);
-        
-        // Use a subtractive blend mode to "erase" the fog
-        gpu_set_blendmode(bm_subtract);
-        
-        // Draw a soft, feathered circle to create a nice reveal effect
-        var _radius = base_vision_radius * o_maze_generator.CELL_SIZE;
-        draw_circle_color(x - o_maze_generator.offset_x, y - o_maze_generator.offset_y, _radius, c_white, c_black, false);
-        
-        // Reset the blend mode back to normal for all other drawing
-        gpu_set_blendmode(bm_normal);
-        
-        surface_reset_target();
-    }
 }
