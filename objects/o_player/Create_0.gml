@@ -27,6 +27,8 @@ current_speedboost_duration = base_speedboost_duration
 // --- Internal Physics Variables ---
 h_speed = 0;
 v_speed = 0;
+last_move_h = 0; // -1 for left, 1 for right
+last_move_v = 1; // -1 for up, 1 for down (default to facing down)
 
 // --- State Machine ---
 has_spawned = false;

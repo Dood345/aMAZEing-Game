@@ -1,36 +1,19 @@
-if (current_wall_break_charges > 0) {
+// --- Wall Breaking Logic (Grid-Based) ---
+if (current_wall_break_charges > 0 && instance_exists(o_maze_generator)) {
     
-    var _dir_x = sign(h_speed);
-    var _dir_y = sign(v_speed);
+    // Use collision_line to find the wall directly in front of the player
+    var _check_dist = 16; // How far to check for a wall
+    var _target_x = x + (last_move_h * _check_dist);
+    var _target_y = y + (last_move_v * _check_dist);
+    var _wall_to_break = collision_line(x, y, _target_x, _target_y, o_wall_parent, false, true);
     
-    // Prioritize horizontal direction if moving diagonally
-    if (_dir_x != 0) { _dir_y = 0; }
-    
-    // Don't break walls if we are standing still
-    if (_dir_x != 0 || _dir_y != 0) {
-        
-        // Calculate a check position one pixel in the direction we're moving
-        var _check_x = x + _dir_x;
-        var _check_y = y + _dir_y;
-        
-        // Find the specific wall instance that is at that check position
-        var _wall_to_break = instance_place(_check_x, _check_y, o_wall_parent);
-        
-        // If we found a wall...
-        if (_wall_to_break != noone) {
-            
-            // We found a valid wall! Now use the charge.
-            current_wall_break_charges -= 1;
-            
-            // Destroy the specific instance we found
-            instance_destroy(_wall_to_break);
-            
-            // You could create a dust/explosion particle effect here!
-            
-            // If that was our last charge, stop wielding the fist sprite.
-            if (current_wall_break_charges <= 0) {
-                wielded_item_sprite = -1;
-            }
+    if (_wall_to_break != noone) {
+        instance_destroy(_wall_to_break);
+        current_wall_break_charges -= 1;
+
+        // If that was the last charge, remove the fist icon
+        if (current_wall_break_charges == 0) {
+            wielded_item_sprite = -1;
         }
     }
 }

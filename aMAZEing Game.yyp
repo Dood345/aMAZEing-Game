@@ -54,6 +54,7 @@
     {"id":{"name":"s_fist","path":"sprites/s_fist/s_fist.yy",},},
     {"id":{"name":"s_player","path":"sprites/s_player/s_player.yy",},},
     {"id":{"name":"s_speedup","path":"sprites/s_speedup/s_speedup.yy",},},
+    {"id":{"name":"s_target_reticle","path":"sprites/s_target_reticle/s_target_reticle.yy",},},
     {"id":{"name":"s_wall_h","path":"sprites/s_wall_h/s_wall_h.yy",},},
     {"id":{"name":"s_wall_v","path":"sprites/s_wall_v/s_wall_v.yy",},},
     {"id":{"name":"ts_collision","path":"tilesets/ts_collision/ts_collision.yy",},},

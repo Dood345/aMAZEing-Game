@@ -20,10 +20,11 @@ if (!has_spawned) {
         // Tell the generator where its official start point is
         o_maze_generator.start_cell_x = _grid_x;
         o_maze_generator.start_cell_y = _grid_y;
+        show_debug_message("Player reporting start at: (" + string(_grid_x) + ", " + string(_grid_y) + ")");
         
         // Calculate the exact pixel center of that starting cell
-        var _target_x = (o_maze_generator.offset_x) + (_grid_x * o_maze_generator.CELL_SIZE);
-        var _target_y = (o_maze_generator.offset_y) + (_grid_y * o_maze_generator.CELL_SIZE);
+        var _target_x = (o_maze_generator.offset_x) + (_grid_x * o_maze_generator.CELL_SIZE) + (o_maze_generator.CELL_SIZE / 2);
+        var _target_y = (o_maze_generator.offset_y) + (_grid_y * o_maze_generator.CELL_SIZE) + (o_maze_generator.CELL_SIZE / 2);
         
         // Snap the player's position to that target
         x = _target_x;
@@ -119,6 +120,9 @@ if (!has_spawned) {
 	    } else {
 	        h_speed = 0; // Stop completely
 	    }
+	} else {
+		last_move_h = _move_horizontal;
+	    last_move_v = 0;
 	}
 	if (_move_vertical == 0) {
 	    if (abs(v_speed) > current_stop_threshold) {
@@ -126,6 +130,9 @@ if (!has_spawned) {
 	    } else {
 	        v_speed = 0; // Stop completely
 	    }
+	} else { 
+		last_move_h = 0;
+		last_move_v = _move_vertical;
 	}
 
 
@@ -157,4 +164,22 @@ if (!has_spawned) {
 	    _move_y = 0;
 	}
 	y += _move_y;
+
+    // -- FOG OF WAR --
+    if (instance_exists(o_maze_generator) && surface_exists(o_maze_generator.fog_of_war_surface)) {
+        var _surf = o_maze_generator.fog_of_war_surface;
+        surface_set_target(_surf);
+        
+        // Use a subtractive blend mode to "erase" the fog
+        gpu_set_blendmode(bm_subtract);
+        
+        // Draw a soft, feathered circle to create a nice reveal effect
+        var _radius = base_vision_radius * o_maze_generator.CELL_SIZE;
+        draw_circle_color(x - o_maze_generator.offset_x, y - o_maze_generator.offset_y, _radius, c_white, c_black, false);
+        
+        // Reset the blend mode back to normal for all other drawing
+        gpu_set_blendmode(bm_normal);
+        
+        surface_reset_target();
+    }
 }

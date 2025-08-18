@@ -6,6 +6,11 @@ MAZE_WIDTH = 40;  // Number of cells wide
 MAZE_HEIGHT = 22; // Number of cells high
 CELL_SIZE = 24;   // Size of each cell in pixels
 
+// -- POWER-UP CONFIGURATION --
+powerup_types = [o_speedup_pickup, o_fist_pickup]; // The list of power-ups to spawn
+powerup_min_dist = 10; // Minimum distance from the player start to spawn a power-up
+powerup_max_dist = 30; // Maximum distance from the player start to spawn a power-up
+
 // -- INTERNAL VARIABLES --
 grid = [];
 path_stack = ds_stack_create();
@@ -144,9 +149,9 @@ reset_maze = function() {
     ds_stack_push(self.path_stack, _start_cell);
 }
 
-/// @function find_locations_by_distance(_start_x, _start_y, _distance)
-/// @description Helper function uses BFS to find all open grid cells at a specific distance.
-find_locations_by_distance = function(_start_x, _start_y, _distance) {
+/// @function find_spawn_locations(_start_x, _start_y, _min_dist, _max_dist)
+/// @description Helper function uses BFS to find all open grid cells within a distance range.
+find_spawn_locations = function(_start_x, _start_y, _min_dist, _max_dist) {
     
     var _queue = ds_list_create();
     var _locations = []; // This will store our results
@@ -169,13 +174,13 @@ find_locations_by_distance = function(_start_x, _start_y, _distance) {
         var cy = _current[1];
         var _cdist = _current[2];
         
-        // If this cell is at our target distance, add it to our results!
-        if (_cdist == _distance) {
+        // If this cell is within our desired distance range, add it to our results!
+        if (_cdist >= _min_dist && _cdist <= _max_dist) {
             array_push(_locations, [cx, cy]);
         }
         
-        // If we've gone past our target distance, we don't need to explore further from this branch
-        if (_cdist > _distance) {
+        // If we've gone past our max distance, we don't need to explore further from this branch
+        if (_cdist > _max_dist) {
             continue;
         }
         
