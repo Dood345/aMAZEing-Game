@@ -32,8 +32,8 @@ if (!ds_stack_empty(path_stack)) {
     var _current_cell = ds_stack_top(path_stack);
     
     // Apply the offset here as well!
-    var _x1 = (_current_cell.x * CELL_SIZE) + offset_x; // <-- CHANGE HERE
-    var _y1 = (_current_cell.y * CELL_SIZE) + offset_y; // <-- CHANGE HERE
+    var _x1 = (_current_cell.x * CELL_SIZE) + offset_x;
+    var _y1 = (_current_cell.y * CELL_SIZE) + offset_y;
     
     draw_set_color(c_lime);
     draw_rectangle(_x1, _y1, _x1 + CELL_SIZE, _y1 + CELL_SIZE, false);

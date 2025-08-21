@@ -11,10 +11,15 @@ powerup_types = [o_speedup_pickup, o_fist_pickup]; // The list of power-ups to s
 powerup_min_dist = 10; // Minimum distance from the player start to spawn a power-up
 powerup_max_dist = 30; // Maximum distance from the player start to spawn a power-up
 
+// -- BASE_SCALES --
+powerup_base_scale = 0.0369;
+player_base_scale = 0.125;
+
 // -- INTERNAL VARIABLES --
 grid = [];
 path_stack = ds_stack_create();
 generation_complete = false;
+player_spawned = false;
 powerup_spawned = false;
 start_cell_x = -1; // -1 means not set yet
 start_cell_y = -1;
@@ -118,13 +123,19 @@ reset_maze = function() {
     
     // 1. Reset all the state variables using 'self'
     self.generation_complete = false;
+    self.player_spawned = false;
     self.powerup_spawned = false;
     self.walls_built = false;
     self.start_cell_x = -1;
     self.start_cell_y = -1;
     self.end_cell_x = -1;
     self.end_cell_y = -1;
-    
+
+    if (instance_exists(o_player)) {
+        o_player.in_maze = false;
+        o_player.visible = false;
+    }
+
     // 2. Clear out the old data structures
     ds_stack_destroy(self.path_stack);
     self.path_stack = ds_stack_create();

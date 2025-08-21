@@ -18,6 +18,11 @@ if (!generation_complete) {
 
     // Get the current cell we are carving a path from (the top of the stack).
     var _current_cell = ds_stack_top(path_stack);
+    if (start_cell_x == -1) {
+        start_cell_x = _current_cell.x;
+        start_cell_y = _current_cell.y;
+        show_debug_message("Start cell set to: (" + string(start_cell_x) + ", " + string(start_cell_y) + ")");
+    }
     // Find all adjacent cells that have not been visited yet.
     var _neighbors = get_unvisited_neighbors(_current_cell.x, _current_cell.y);
 
@@ -31,11 +36,12 @@ if (!generation_complete) {
         remove_wall_between(_current_cell, _next_cell);
         // Mark the new cell as visited so we don't create loops.
         _next_cell.visited = true;
+        // This is the actual last cell that got "painted/filled"
+        end_cell_x = _next_cell.x;
+        end_cell_y = _next_cell.y;
+        
     } else {
-        // If there are no unvisited neighbors, we've hit a dead end.
-        // We'll mark this as a potential end point for the maze.
-        end_cell_x = _current_cell.x;
-        end_cell_y = _current_cell.y;
+        // Originally marked potential end_cells here, but it was always the first cell since that is actually the last one visited by this aglo
         // Backtrack by popping the current cell from the stack to return to the previous one.
         ds_stack_pop(path_stack);
     }
@@ -80,10 +86,46 @@ if (!generation_complete) {
     
     walls_built = true; // Move to the next state
 
+} else if (!player_spawned) {
+    // --- STATE 3: SPAWN PLAYER (runs only once) ---
+    // The maze generation sets start_cell_x and start_cell_y during generation
+    // We use these coordinates to spawn the player at the maze start
+    
+    if (start_cell_x != -1 && start_cell_y != -1) {
+        // Calculate the pixel position (centered in the cell)
+        var _pixel_x = (offset_x) + (start_cell_x * CELL_SIZE) + (CELL_SIZE / 2);
+        var _pixel_y = (offset_y) + (start_cell_y * CELL_SIZE) + (CELL_SIZE / 2);
+        
+        // Create the player at the maze start
+		var _player_vars = {
+		    image_xscale: player_base_scale,
+		    image_yscale: player_base_scale
+		};
+        if(!instance_exists(o_player)) {
+            instance_create_layer(_pixel_x, _pixel_y, "Instances_Player", o_player, _player_vars);
+        } else {
+            o_player.x = _pixel_x;
+            o_player.y = _pixel_y;
+        }
+        show_debug_message("Spawned player at grid (" + string(start_cell_x) + ", " + string(start_cell_y) + ") pixel (" + string(_pixel_x) + ", " + string(_pixel_y) + ")");
+		// _pixel_x = (offset_x) + (end_cell_x * CELL_SIZE) + (CELL_SIZE / 2);
+        // _pixel_y = (offset_y) + (end_cell_y * CELL_SIZE) + (CELL_SIZE / 2);
+		// show_debug_message("End is at grid (" + string(end_cell_x) + ", " + string(end_cell_y) + ") pixel (" + string(_pixel_x) + ", " + string(_pixel_y) + ")");
+		
+        // Get a reference to the generator's live particle system
+		var _ps = o_maze_generator.spawn_ps_instance;
+
+        player_spawned = true;
+        o_player.in_maze = true;
+        o_player.visible = true;
+        // Burst of particles
+        part_particles_create(_ps, x, y, 0, 20);
+    }
+    
 } else if (!powerup_spawned) {
 	// --- STATE 3: SPAWN POWERUPS (runs only once) ---
     // Wait until the player exists AND has confirmed its own spawn
-    if (instance_exists(o_player) && o_player.has_spawned) {
+    if (instance_exists(o_player) && o_player.in_maze) {
         show_debug_message("Generator received start at: (" + string(start_cell_x) + ", " + string(start_cell_y) + ")");
         
         // Find all valid spawn locations within the specified distance range
@@ -114,8 +156,13 @@ if (!generation_complete) {
                 var _pixel_x = (offset_x) + (_spawn_grid_x * CELL_SIZE) + (CELL_SIZE / 2);
                 var _pixel_y = (offset_y) + (_spawn_grid_y * CELL_SIZE) + (CELL_SIZE / 2);
                 
+				var _powerup_vars = {
+				    image_xscale: powerup_base_scale,
+				    image_yscale: powerup_base_scale
+				};
+				
                 // Create the pickup!
-                var _inst = instance_create_layer(_pixel_x, _pixel_y, "Instances_Player", _powerup_obj);
+                var _inst = instance_create_layer(_pixel_x, _pixel_y, "Instances_Player", _powerup_obj, _powerup_vars);
                 show_debug_message("Spawned " + object_get_name(_inst.object_index) + " at (" + string(_pixel_x) + ", " + string(_pixel_y) + ")");
             }
         } else {
