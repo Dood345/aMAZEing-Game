@@ -1,7 +1,9 @@
 /// @description Player Variables and State
 
 // --- BASE (Permanent) Attributes ---
+base_scale = o_maze_generator.player_base_scale; // The normal size we want player to be
 wielded_item_sprite = -1;
+wield_scale = 0.025
 base_acceleration = 0.2;
 base_max_speed = 4;
 base_friction_amount = 0.1;
@@ -31,7 +33,7 @@ last_move_h = 0; // -1 for left, 1 for right
 last_move_v = 1; // -1 for up, 1 for down (default to facing down)
 
 // --- State Machine ---
-has_spawned = false;
+in_maze = false;
 
 // --- HELPER METHOD: Recalculate Stats ---
 // This function will be the single place where we determine the player's current stats.

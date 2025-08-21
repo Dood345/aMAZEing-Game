@@ -1,5 +1,5 @@
 // --- Wall Breaking Logic (Grid-Based) ---
-if (current_wall_break_charges > 0 && instance_exists(o_maze_generator)) {
+if (current_wall_break_charges > 0 && in_maze) {
     
     // Use collision_line to find the wall directly in front of the player
     var _check_dist = 16; // How far to check for a wall
