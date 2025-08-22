@@ -4,18 +4,18 @@ if (in_maze) {
 	// --- STATE 1: ACTIVE / PLAYING ---
 	// This is our normal movement code. It will only run AFTER we have spawned.
 	// Check if we are at the end goal
-	if (instance_exists(o_maze_generator)) {
+	if (instance_exists(o_maze_controller)) {
 		// Get the grid coordinates of our current position
-		var _current_grid_x = floor((x - o_maze_generator.offset_x) / o_maze_generator.CELL_SIZE);
-		var _current_grid_y = floor((y - o_maze_generator.offset_y) / o_maze_generator.CELL_SIZE);
+		var _current_grid_x = floor((x - o_maze_controller.offset_x) / o_maze_controller.CELL_SIZE);
+		var _current_grid_y = floor((y - o_maze_controller.offset_y) / o_maze_controller.CELL_SIZE);
 	
 		// Is our current cell the same as the generator's end cell?
-		if (_current_grid_x == o_maze_generator.end_cell_x && _current_grid_y == o_maze_generator.end_cell_y) {
+		if (_current_grid_x == o_maze_controller.end_cell_x && _current_grid_y == o_maze_controller.end_cell_y) {
 			
 			// --- GOAL REACHED! ---
 		
 			// 1. Tell the generator to reset
-			o_maze_generator.reset_maze();
+			o_maze_controller.reset_maze();
 			h_speed = 0; // Reset momentum too!
 			v_speed = 0;
 		}

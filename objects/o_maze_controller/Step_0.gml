@@ -113,13 +113,13 @@ if (!generation_complete) {
 		// show_debug_message("End is at grid (" + string(end_cell_x) + ", " + string(end_cell_y) + ") pixel (" + string(_pixel_x) + ", " + string(_pixel_y) + ")");
 		
         // Get a reference to the generator's live particle system
-		var _ps = o_maze_generator.spawn_ps_instance;
+		var _ps = o_maze_controller.spawn_ps_instance;
 
         player_spawned = true;
         o_player.in_maze = true;
         o_player.visible = true;
         // Burst of particles
-        part_particles_create(_ps, x, y, 0, 20);
+        part_particles_create(_ps, o_player.x, o_player.y, 0, 20);
     }
     
 } else if (!powerup_spawned) {

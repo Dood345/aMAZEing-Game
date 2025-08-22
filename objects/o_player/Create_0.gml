@@ -1,7 +1,7 @@
 /// @description Player Variables and State
 
 // --- BASE (Permanent) Attributes ---
-base_scale = o_maze_generator.player_base_scale; // The normal size we want player to be
+base_scale = o_maze_controller.player_base_scale; // The normal size we want player to be
 wielded_item_sprite = -1;
 wield_scale = 0.025
 base_acceleration = 0.2;

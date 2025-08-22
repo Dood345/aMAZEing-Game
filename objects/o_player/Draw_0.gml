@@ -7,7 +7,7 @@ if (wielded_item_sprite != -1) {
 }
 
 // --- Draw Wall-Break Target ---
-if (current_wall_break_charges > 0 && instance_exists(o_maze_generator)) {
+if (current_wall_break_charges > 0 && instance_exists(o_maze_controller)) {
     
     // Use collision_line to find the wall directly in front of the player
     var _check_dist = 16; // How far to check for a wall
@@ -17,7 +17,7 @@ if (current_wall_break_charges > 0 && instance_exists(o_maze_generator)) {
 
     if (_wall_found != noone) {
         // Scale the reticle to match the cell size for clear visibility
-        var _scale = o_maze_generator.CELL_SIZE / sprite_get_width(s_target_reticle);
+        var _scale = o_maze_controller.CELL_SIZE / sprite_get_width(s_target_reticle);
         // Snap the reticle to the wall's actual position for pixel-perfect alignment
         draw_sprite_ext(s_target_reticle, 0, _wall_found.x, _wall_found.y, _scale, _scale, 0, c_white, 0.75);
     }

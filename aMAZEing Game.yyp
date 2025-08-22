@@ -37,7 +37,8 @@
   "resources":[
     {"id":{"name":"f_main","path":"fonts/f_main/f_main.yy",},},
     {"id":{"name":"o_fist_pickup","path":"objects/o_fist_pickup/o_fist_pickup.yy",},},
-    {"id":{"name":"o_maze_generator","path":"objects/o_maze_generator/o_maze_generator.yy",},},
+    {"id":{"name":"o_FOW_controller","path":"objects/o_FOW_controller/o_FOW_controller.yy",},},
+    {"id":{"name":"o_maze_controller","path":"objects/o_maze_controller/o_maze_controller.yy",},},
     {"id":{"name":"o_pickup_parent","path":"objects/o_pickup_parent/o_pickup_parent.yy",},},
     {"id":{"name":"o_player","path":"objects/o_player/o_player.yy",},},
     {"id":{"name":"o_skill_parent","path":"objects/o_skill_parent/o_skill_parent.yy",},},
@@ -48,6 +49,7 @@
     {"id":{"name":"o_wall_v","path":"objects/o_wall_v/o_wall_v.yy",},},
     {"id":{"name":"ps_spawn","path":"particles/ps_spawn/ps_spawn.yy",},},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
+    {"id":{"name":"shd_FOW_ripple","path":"shaders/shd_FOW_ripple/shd_FOW_ripple.yy",},},
     {"id":{"name":"background","path":"sprites/background/background.yy",},},
     {"id":{"name":"GM_FlameIntensity_spr_Fire","path":"sprites/GM_FlameIntensity_spr_Fire/GM_FlameIntensity_spr_Fire.yy",},},
     {"id":{"name":"s_collision_tiles","path":"sprites/s_collision_tiles/s_collision_tiles.yy",},},
