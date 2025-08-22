@@ -54,6 +54,7 @@
     {"id":{"name":"GM_FlameIntensity_spr_Fire","path":"sprites/GM_FlameIntensity_spr_Fire/GM_FlameIntensity_spr_Fire.yy",},},
     {"id":{"name":"s_collision_tiles","path":"sprites/s_collision_tiles/s_collision_tiles.yy",},},
     {"id":{"name":"s_fist","path":"sprites/s_fist/s_fist.yy",},},
+    {"id":{"name":"s_player_vision","path":"sprites/s_player_vision/s_player_vision.yy",},},
     {"id":{"name":"s_player","path":"sprites/s_player/s_player.yy",},},
     {"id":{"name":"s_speedup","path":"sprites/s_speedup/s_speedup.yy",},},
     {"id":{"name":"s_target_reticle","path":"sprites/s_target_reticle/s_target_reticle.yy",},},

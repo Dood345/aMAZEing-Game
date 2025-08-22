@@ -1,24 +1,27 @@
-/// @description Draw fog of war gui
-if (!surface_exists(fog_surface)) return;
+/// @description Draw Event
+if (!o_maze_controller.player_spawned) return;
+if (!surface_exists(fog_surface)) {
+	fog_surface = surface_create(fog_surface_width, fog_surface_height);
+    
+	// Fill with black
+	surface_set_target(fog_surface);
+	draw_clear(c_black);
+	draw_surface(fog_surface, fog_draw_x, fog_draw_y);
+	surface_reset_target();
+}
 
-// Get shader uniforms
-var time_uniform = shader_get_uniform(shd_FOW_ripple, "u_time");
-var freq_uniform = shader_get_uniform(shd_FOW_ripple, "u_frequency");
-var amp_uniform = shader_get_uniform(shd_FOW_ripple, "u_amplitude");
-var fog_uniform = shader_get_sampler_index(shd_FOW_ripple, "u_fog_texture");
-
-// Set shader and uniforms
-shader_set(shd_FOW_ripple);
-shader_set_uniform_f(time_uniform, ripple_time);
-shader_set_uniform_f(freq_uniform, ripple_frequency);
-shader_set_uniform_f(amp_uniform, ripple_amplitude);
-
-// Bind fog texture to the shader
-texture_set_stage(fog_uniform, surface_get_texture(fog_surface));
-
-// Draw the fog over everything
-gpu_set_blendmode_ext(bm_src_color, bm_inv_src_alpha);
-draw_surface_ext(fog_surface, 0, 0, 1, 1, 0, c_white, 0.8);
+// Draw the fog - this should darken unexplored areas
+surface_set_target(fog_surface);
+    
+// Draw white circles to keep areas revealed
+gpu_set_blendmode(bm_subtract);
+draw_set_color(c_white);
+draw_set_alpha(0.7);
+draw_circle(o_player.x - fog_draw_x, o_player.y - fog_draw_y, clear_radius, false);
+draw_set_alpha(1.0);
 gpu_set_blendmode(bm_normal);
+    
+surface_reset_target();
 
-shader_reset();
+
+draw_surface(fog_surface, fog_draw_x, fog_draw_y);
