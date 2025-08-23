@@ -25,11 +25,21 @@ if (instance_exists(o_maze_controller)) {
 	    draw_clear(c_black);
 	    surface_reset_target();
 	}
+}
 
-	/// clear_fog_explosion(x, y, max_radius, duration)
-	function clear_fog_explosion(xx, yy, max_radius, duration) {
-	    // Create expanding clear effect
-	    var current_radius = (current_time % duration) / duration * max_radius;
-	    clear_fog_at(xx, yy, current_radius);
-	}
+/// @function clear_fog_explosion()
+/// @description clear_fog_explosion(x, y, max_radius, duration)
+clear_fog_explosion = function(xx, yy, max_radius, duration) {
+	// Create expanding clear effect
+	var current_radius = (current_time % duration) / duration * max_radius;
+	clear_fog_at(xx, yy, current_radius);
+}
+
+/// @function reset_fog()
+/// @description Resets fog when generating a new maze.
+reset_fog = function() {
+	// Fill existing surface with black
+	surface_set_target(fog_surface);
+	draw_clear(c_black);
+	surface_reset_target();
 }

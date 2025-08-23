@@ -131,6 +131,10 @@ reset_maze = function() {
     self.end_cell_x = -1;
     self.end_cell_y = -1;
 
+	with (o_FOW_controller) {
+		reset_fog();
+	}
+
     if (instance_exists(o_player)) {
         o_player.in_maze = false;
         o_player.visible = false;
