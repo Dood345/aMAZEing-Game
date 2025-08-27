@@ -63,9 +63,16 @@ if (in_maze) {
 			h_speed -= sign(h_speed) * current_friction_amount; // Slow down
 		} else {
 			h_speed = 0; // Stop completely
+			//experimental audio
+			walking_snd = false;
 		}
 	} else {
 		last_move_h = _move_horizontal;
+		//experimental audio
+		if !walking_snd {
+			audio_play_sound_at(snd_walk, o_player.x, o_player.y, 0, 1, 1, 1, true, 0);
+			walking_snd = true;
+		}
 		last_move_v = 0;
 	}
 	if (_move_vertical == 0) {

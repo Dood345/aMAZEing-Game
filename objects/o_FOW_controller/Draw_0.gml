@@ -3,10 +3,9 @@ if (!o_maze_controller.player_spawned) return;
 if (!surface_exists(fog_surface)) {
 	fog_surface = surface_create(fog_surface_width, fog_surface_height);
     
-	// Fill with black
+	// Fill with blue
 	surface_set_target(fog_surface);
-	draw_clear(c_black);
-	draw_surface(fog_surface, fog_draw_x, fog_draw_y);
+	draw_clear(fog_color);
 	surface_reset_target();
 }
 
@@ -23,5 +22,13 @@ gpu_set_blendmode(bm_normal);
     
 surface_reset_target();
 
+// NOW draw the surface to the screen with shader applied
+shader_set(shd_fog_basic);
+
+// Update time for animation
+ripple_time += ripple_speed * (1/60);
+shader_set_uniform_f(shader_get_uniform(shd_fog_basic, "u_time"), ripple_time);
 
 draw_surface(fog_surface, fog_draw_x, fog_draw_y);
+
+shader_reset();

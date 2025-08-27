@@ -1,6 +1,7 @@
 	/// @description Create Event to init fog of war
 if (instance_exists(o_maze_controller)) {
 	// Initialize fog surface
+	fog_color = c_aqua;
 	fog_surface = -1;
 	fog_surface_width = o_maze_controller.MAZE_WIDTH * o_maze_controller.CELL_SIZE;
 	fog_surface_height = o_maze_controller.MAZE_HEIGHT * o_maze_controller.CELL_SIZE;
@@ -10,8 +11,8 @@ if (instance_exists(o_maze_controller)) {
 	// Ripple effect variables
 	ripple_time = 0;
 	ripple_speed = 2.0;
-	ripple_frequency = 10.0;
-	ripple_amplitude = 0.02;
+	ripple_intensity = 0.3;        // How strong the ripples affect visibility
+	stargate_mode = true;         // Toggle between basic and stargate effect
 
 	// Clear radius when player moves
 	clear_radius = 64;
@@ -22,7 +23,7 @@ if (instance_exists(o_maze_controller)) {
     
 	    // Fill with black
 	    surface_set_target(fog_surface);
-	    draw_clear(c_black);
+	    draw_clear(fog_color);
 	    surface_reset_target();
 	}
 }
@@ -40,6 +41,6 @@ clear_fog_explosion = function(xx, yy, max_radius, duration) {
 reset_fog = function() {
 	// Fill existing surface with black
 	surface_set_target(fog_surface);
-	draw_clear(c_black);
+	draw_clear(fog_color);
 	surface_reset_target();
 }

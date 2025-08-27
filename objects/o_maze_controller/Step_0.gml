@@ -119,6 +119,7 @@ if (!generation_complete) {
         o_player.in_maze = true;
         o_player.visible = true;
         // Burst of particles
+		audio_play_sound_at(snd_ding, o_player.x, o_player.y, 0, 1, 1, 1, false, 1);
         part_particles_create(_ps, o_player.x, o_player.y, 0, 20);
     }
     

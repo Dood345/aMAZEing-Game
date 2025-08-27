@@ -16,6 +16,9 @@ base_wall_break_charges = 0;
 base_portal_charges = 0;
 base_speedboost_duration = 0;
 
+//temp audio variable
+walking_snd = false;
+
 // --- CURRENT (Temporary) Attributes ---
 // These are the values the game will actually use for movement, etc.
 current_acceleration = base_acceleration;

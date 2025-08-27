@@ -1,0 +1,12 @@
+{
+  "$GMShader":"",
+  "%Name":"shd_fog_stargate",
+  "name":"shd_fog_stargate",
+  "parent":{
+    "name":"Shaders",
+    "path":"folders/Shaders.yy",
+  },
+  "resourceType":"GMShader",
+  "resourceVersion":"2.0",
+  "type":1,
+}

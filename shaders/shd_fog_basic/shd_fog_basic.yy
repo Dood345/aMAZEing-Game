@@ -1,7 +1,7 @@
 {
   "$GMShader":"",
-  "%Name":"shd_FOW_ripple",
-  "name":"shd_FOW_ripple",
+  "%Name":"shd_fog_basic",
+  "name":"shd_fog_basic",
   "parent":{
     "name":"Shaders",
     "path":"folders/Shaders.yy",
