@@ -9,7 +9,7 @@
   "bitRate":128,
   "compression":3,
   "conversionMode":0,
-  "duration":3.7813833,
+  "duration":1.2726984,
   "name":"snd_walk",
   "parent":{
     "name":"Sounds",
@@ -21,5 +21,5 @@
   "sampleRate":44100,
   "soundFile":"snd_walk.wav",
   "type":0,
-  "volume":0.42,
+  "volume":0.48,
 }

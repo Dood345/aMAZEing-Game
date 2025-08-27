@@ -29,8 +29,8 @@ if stargate_mode {
 
 	// Pass the required uniform variables
 	shader_set_uniform_f(shader_get_uniform(shd_fog_stargate, "u_time"), ripple_time);
-	shader_set_uniform_f(shader_get_uniform(shd_fog_stargate, "u_player_pos"), 
-	    o_player.x - fog_draw_x, o_player.y - fog_draw_y);
+	//shader_set_uniform_f(shader_get_uniform(shd_fog_stargate, "u_player_pos"), 
+	//    o_player.x - fog_draw_x, o_player.y - fog_draw_y);						//removed for now
 	shader_set_uniform_f(shader_get_uniform(shd_fog_stargate, "u_surface_size"), 
 	    fog_surface_width, fog_surface_height);
 	shader_set_uniform_f(shader_get_uniform(shd_fog_stargate, "u_ripple_intensity"), 

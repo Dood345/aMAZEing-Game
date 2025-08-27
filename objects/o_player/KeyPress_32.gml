@@ -10,6 +10,8 @@ if (current_wall_break_charges > 0 && in_maze) {
     if (_wall_to_break != noone) {
         instance_destroy(_wall_to_break);
         current_wall_break_charges -= 1;
+		//sound effect?
+		audio_play_sound(snd_tck, 1, false);
 
         // If that was the last charge, remove the fist icon
         if (current_wall_break_charges == 0) {
