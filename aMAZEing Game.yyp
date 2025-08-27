@@ -52,6 +52,7 @@
     {"id":{"name":"shd_fog_basic","path":"shaders/shd_fog_basic/shd_fog_basic.yy",},},
     {"id":{"name":"shd_fog_stargate","path":"shaders/shd_fog_stargate/shd_fog_stargate.yy",},},
     {"id":{"name":"snd_ding","path":"sounds/snd_ding/snd_ding.yy",},},
+    {"id":{"name":"snd_tck","path":"sounds/snd_tck/snd_tck.yy",},},
     {"id":{"name":"snd_walk","path":"sounds/snd_walk/snd_walk.yy",},},
     {"id":{"name":"background","path":"sprites/background/background.yy",},},
     {"id":{"name":"GM_FlameIntensity_spr_Fire","path":"sprites/GM_FlameIntensity_spr_Fire/GM_FlameIntensity_spr_Fire.yy",},},

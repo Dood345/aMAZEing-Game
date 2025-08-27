@@ -22,13 +22,27 @@ gpu_set_blendmode(bm_normal);
     
 surface_reset_target();
 
-// NOW draw the surface to the screen with shader applied
-shader_set(shd_fog_basic);
-
-// Update time for animation
 ripple_time += ripple_speed * (1/60);
-shader_set_uniform_f(shader_get_uniform(shd_fog_basic, "u_time"), ripple_time);
+
+if stargate_mode {
+	shader_set(shd_fog_stargate);
+
+	// Pass the required uniform variables
+	shader_set_uniform_f(shader_get_uniform(shd_fog_stargate, "u_time"), ripple_time);
+	shader_set_uniform_f(shader_get_uniform(shd_fog_stargate, "u_player_pos"), 
+	    o_player.x - fog_draw_x, o_player.y - fog_draw_y);
+	shader_set_uniform_f(shader_get_uniform(shd_fog_stargate, "u_surface_size"), 
+	    fog_surface_width, fog_surface_height);
+	shader_set_uniform_f(shader_get_uniform(shd_fog_stargate, "u_ripple_intensity"), 
+	    ripple_intensity);
+} 
+else {
+	// NOW draw the surface to the screen with shader applied
+	shader_set(shd_fog_basic);
+
+	// Update time for animation
+	shader_set_uniform_f(shader_get_uniform(shd_fog_basic, "u_time"), ripple_time);
+}
 
 draw_surface(fog_surface, fog_draw_x, fog_draw_y);
-
 shader_reset();

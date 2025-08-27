@@ -70,7 +70,7 @@ if (in_maze) {
 		last_move_h = _move_horizontal;
 		//experimental audio
 		if !walking_snd {
-			audio_play_sound_at(snd_walk, o_player.x, o_player.y, 0, 1, 1, 1, true, 0);
+			audio_play_sound_at(snd_walk, o_player.x, o_player.y, 0, 1, 1, 1, false, 0);
 			walking_snd = true;
 		}
 		last_move_v = 0;
